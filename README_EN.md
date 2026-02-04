@@ -92,14 +92,6 @@ MODEL = "gpt-4"              # Model name
 
 ---
 
-### 💾 Dump - Memory Export
-
-**Features:** Extract code or data for external analysis
-- Support exporting address ranges, segments, functions
-- Support multiple formats (raw, hex, c_array, python)
-
----
-
 ### 📊 Export Check - Export Table Analysis
 
 **Features:** Detect abnormal DLL export functions

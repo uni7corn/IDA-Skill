@@ -3,14 +3,13 @@
 mkYARA - 从 IDA 中选定的代码/数据生成 YARA 规则
 支持生成 loose/normal/strict 三种模式的规则
 
-用法（在 IDA 中执行）:
-    idat -A -S"mkyara.py <start_ea> <end_ea> [mode] [output_file]" target.idb
+用法:
+    python exec_ida.py target.i64 --tool mkyara.py 0x401000 0x402000 normal output.yar
     
     mode: loose / normal / strict (默认 normal)
 
-或在 IDAPython 控制台:
-    exec(open("mkyara.py").read())
-    generate_yara(0x401000, 0x401100, "normal", "rule.yar")
+或在 IDA 中直接执行:
+    idat -A -S"mkyara.py <start_ea> <end_ea> [mode] [output_file]" target.idb
 """
 import idaapi
 import idautils

@@ -6,11 +6,14 @@ REAI - AI 辅助逆向分析
 依赖: openai (pip install openai)
 
 用法:
-    1. 先检查异常代码:
-       idat -A -S"reai.py <func_ea> check" target.idb
+    # 检查异常代码 查看调用链函数个数（必须先执行）
+    python exec_ida.py target.i64 --tool reai.py 0x401000 check
     
-    2. 再进行分析:
-       idat -A -S"reai.py <func_ea> analyze [--skip-error]" target.idb
+    # 分析函数并递归处理子函数
+    python exec_ida.py target.i64 --tool reai.py 0x401000 analyze
+    
+    # 分析时跳过异常代码继续处理
+    python exec_ida.py target.i64 --tool reai.py 0x401000 analyze --skip-error
 
     action:
         check     - 检查异常代码（JUMPOUT/MEMORY），必须先执行
@@ -20,7 +23,10 @@ REAI - AI 辅助逆向分析
     options:
         --skip-error  - 遇到异常代码时跳过，继续分析后续函数
 
-配置文件: scripts/config.json
+或在 IDA 中直接执行:
+    idat -A -S"reai.py <func_ea> <action>" target.idb
+
+配置文件: config.json
 """
 import idaapi
 import ida_funcs

@@ -3,6 +3,9 @@
 Export Function Check - 检查并列出所有导出函数信息
 
 用法:
+    python exec_ida.py target.i64 --tool export_check.py
+
+或在 IDA 中直接执行:
     idat -A -S"export_check.py [output.json]" target.idb
 """
 import idaapi

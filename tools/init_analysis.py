@@ -10,7 +10,7 @@ IDA 初始化分析脚本
     python init_analysis.py target.exe ./result
 
 配置：
-    idat 路径在 skills/ida/config.json 中配置
+    idat 路径在 IDA-Skill/config.json 中配置
 
 输出文件：
 - analysis.txt                          基本信息 + 导出表 + OEP反编译
@@ -251,7 +251,7 @@ if __name__ == "__main__":
 
 def load_config():
     """加载 IDA 配置"""
-    # 获取脚本所在目录的父目录（skills/ida/）
+    # 获取脚本所在目录的父目录（IDA-Skill/）
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(os.path.dirname(script_dir), "config.json")
     
@@ -375,7 +375,7 @@ def main():
         print("Usage: python init_analysis.py <binary_path> [output_dir]")
         print("Example: python init_analysis.py target.exe ./result")
         print("")
-        print("Config: idat_path is configured in skills/ida/config.json")
+        print("Config: idat_path is configured in IDA-Skill/config.json")
         sys.exit(1)
     
     binary_path = sys.argv[1]

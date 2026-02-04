@@ -3,10 +3,11 @@
 FindCrypt - 在 IDB 中搜索加密算法常量
 基于 YARA 规则扫描，识别 AES/DES/RSA/MD5/SHA 等算法特征
 
-用法（在 IDA 中执行）:
-    idat -A -S"findcrypt.py [rules_path] [output_json]" target.idb
+用法:
+    python exec_ida.py target.i64 --tool findcrypt.py
 
-或作为 IDAPython 脚本直接运行
+或在 IDA 中直接执行:
+    idat -A -S"findcrypt.py [rules_path] [output_json]" target.idb
 """
 import idaapi
 import idautils

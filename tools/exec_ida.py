@@ -16,11 +16,11 @@
     
     # 调用工具并传参
     python exec_ida.py target.i64 --tool reai.py 0x401000 check
-    python exec_ida.py target.i64 --tool dump.py --seg .text dump.bin
+    python exec_ida.py target.i64 --tool findcrypt.py
     python exec_ida.py target.i64 --tool mkyara.py 0x401000 0x402000 auto output.yar
 
 配置：
-    idat 路径在 skills/ida/config.json 中配置
+    idat 路径在 IDA-Skill/config.json 中配置
 
 说明：
     IDA 不支持直接在命令行执行代码，必须通过脚本文件。
@@ -34,7 +34,7 @@ import json
 
 def load_config():
     """加载 IDA 配置"""
-    # 获取脚本所在目录的父目录（skills/ida/）
+    # 获取脚本所在目录的父目录（IDA-Skill/）
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(os.path.dirname(script_dir), "config.json")
     
@@ -188,7 +188,7 @@ def main():
         print('  python exec_ida.py target.i64 --code "print(hex(idc.get_inf_attr(idc.INF_START_EA)))"')
         print('  python exec_ida.py target.i64 --file analyze.py')
         print('  python exec_ida.py target.i64 --tool reai.py 0x401000 check')
-        print('  python exec_ida.py target.i64 --tool dump.py --seg .text dump.bin')
+        print('  python exec_ida.py target.i64 --tool findcrypt.py')
         sys.exit(1)
     
     i64_path = sys.argv[1]
