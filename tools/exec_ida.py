@@ -3,13 +3,17 @@
 直接执行 IDAPython 代码并输出结果到控制台
 
 用法：
-    python exec_ida.py <i64_path> --code <code>
+    python exec_ida.py <i64_path> --code-std
     python exec_ida.py <i64_path> --file <script.py>
     python exec_ida.py <i64_path> --tool <tool_name> [args...]
 
 示例：
-    # 执行代码
-    python exec_ida.py target.i64 --code "print(hex(idc.get_inf_attr(idc.INF_START_EA)))"
+    # 从标准输入读取代码（适用于 PowerShell here-string）
+    @'
+    print("Entry Point:", hex(idc.get_inf_attr(idc.INF_START_EA)))
+    for func_ea in idautils.Functions():
+        print(hex(func_ea), idc.get_func_name(func_ea))
+    '@ | python exec_ida.py target.i64 --code-std
     
     # 执行脚本文件
     python exec_ida.py target.i64 --file analyze.py
@@ -25,6 +29,7 @@
 说明：
     IDA 不支持直接在命令行执行代码，必须通过脚本文件。
     本工具自动创建临时脚本并执行，简化使用流程。
+    --code-std 参数从标准输入读取代码，适合 PowerShell here-string 语法。
 """
 import subprocess
 import tempfile
@@ -181,11 +186,11 @@ def run_ida_code(i64_path, code):
 def main():
     if len(sys.argv) < 3:
         print("Usage:")
-        print("  python exec_ida.py <i64_path> --code <code>")
+        print("  python exec_ida.py <i64_path> --code-std")
         print("  python exec_ida.py <i64_path> --file <script.py>")
         print("  python exec_ida.py <i64_path> --tool <tool_name> [args...]")
         print("\nExamples:")
-        print('  python exec_ida.py target.i64 --code "print(hex(idc.get_inf_attr(idc.INF_START_EA)))"')
+        print("  @'...code...'@ | python exec_ida.py target.i64 --code-std")
         print('  python exec_ida.py target.i64 --file analyze.py')
         print('  python exec_ida.py target.i64 --tool reai.py 0x401000 check')
         print('  python exec_ida.py target.i64 --tool findcrypt.py')
@@ -208,13 +213,16 @@ def main():
         with open(script_file, 'r', encoding='utf-8') as f:
             code = f.read()
     
-    elif mode == "--code":
-        # 直接传递代码
-        if len(sys.argv) < 4:
-            print("[-] Missing code argument")
+    elif mode == "--code-std":
+        # 从标准输入读取代码（适用于 PowerShell here-string）
+        code = sys.stdin.read()
+        if not code.strip():
+            print("[-] No code received from stdin")
+            print("[*] Make sure you are using PowerShell here-string syntax:")
+            print("    @'")
+            print("    your code here")
+            print("    '@ | python exec_ida.py target.i64 --code-std")
             sys.exit(1)
-        
-        code = sys.argv[3]
     
     elif mode == "--tool":
         # 调用工具并传参
@@ -251,7 +259,7 @@ idc.ARGV = {args_repr}
     
     else:
         print(f"[-] Invalid mode: {mode}")
-        print("[*] Use --code, --file, or --tool")
+        print("[*] Use --code-std, --file, or --tool")
         sys.exit(1)
     
     success = run_ida_code(i64_path, code)
