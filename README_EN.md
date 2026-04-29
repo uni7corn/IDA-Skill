@@ -81,17 +81,6 @@ MODEL = "gpt-4"              # Model name
 
 ---
 
-### 📝 mkYARA - YARA Rule Generation
-
-> Based on the open-source mkYARA project
-
-**Features:** Generate threat detection rules from code snippets
-- Support multiple matching modes (strict/normal/loose)
-- Automatically extract signature code
-- Generate YARA rules for threat detection
-
----
-
 ### 📊 Export Check - Export Table Analysis
 
 **Features:** Detect abnormal DLL export functions

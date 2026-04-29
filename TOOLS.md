@@ -30,16 +30,6 @@ python skills/IDA-Skill/tools/exec_ida.py target.i64 --tool findcrypt.py
 
 ---
 
-## mkyara.py - YARA 规则生成
-
-从代码范围生成 YARA 检测规则。
-
-```powershell
-python skills/IDA-Skill/tools/exec_ida.py target.i64 --tool mkyara.py 0x401000 0x402000 auto output.yar
-```
-
----
-
 ## export_check.py - 导出函数大小检查
 
 分析 DLL/EXE 的导出函数大小，小字节导出函数序列出现大字节导出函数，需要重点分析。

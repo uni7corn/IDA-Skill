@@ -136,7 +136,6 @@ python skills/IDA-Skill/tools/exec_ida.py target.i64 --file analyze.py
 
 - reai.py - 使用 LLM 分析函数语义，支持递归分析调用链
 - findcrypt.py - 通过特征常量识别加密算法（AES, DES, RC4, MD5, SHA1, SHA256, CRC32, Base64 等）
-- mkyara.py - 从代码范围生成 YARA 检测规则
 - export_check.py - 分析 DLL/EXE 的导出函数大小，小字节导出函数序列出现大字节导出函数，需要重点分析
 
 ## 分析方法文档

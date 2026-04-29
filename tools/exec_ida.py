@@ -21,7 +21,6 @@
     # 调用工具并传参
     python exec_ida.py target.i64 --tool reai.py 0x401000 check
     python exec_ida.py target.i64 --tool findcrypt.py
-    python exec_ida.py target.i64 --tool mkyara.py 0x401000 0x402000 auto output.yar
 
 配置：
     idat 路径在 IDA-Skill/config.json 中配置
